@@ -1,0 +1,61 @@
+# Acces à la rpi :
+login : pi
+passwd : raspberry
+
+# Acces au hotspot
+SSID : wifi-consulting
+PASSWD : Sogeti44
+
+ip du réseau : 10.3.141.0/24
+ip broadcast : 10.3.141.0
+ip du router (rpi) : 10.3.141.1
+ip shuttle-consul: 10.3.141.10
+ip shuttle-sonar : 10.3.141.11
+
+# ----------------------------------------------------------------------- #
+# --------------------- Configuration du hotspot ------------------------ #
+# ----------------------------------------------------------------------- #
+
+# Créer le hotspot
+https://raspbian-france.fr/creer-un-hotspot-wi-fi-en-moins-de-10-minutes-avec-la-raspberry-pi/
+
+# Script de forwarding vers la carte ethernet
+######
+########
+#! /bin/bash
+
+IPTABLES=/sbin/iptables
+
+WANIF='eth1'
+LANIF='wlan0'
+
+# enable ip forwarding in the kernel
+echo 'Enabling Kernel IP forwarding...'
+/bin/echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# flush rules and delete chains
+echo 'Flushing rules and deleting existing chains...'
+$IPTABLES -F
+$IPTABLES -X
+
+# enable masquerading to allow LAN internet access
+echo 'Enabling IP Masquerading and other rules...'
+$IPTABLES -t nat -A POSTROUTING -o $LANIF -j MASQUERADE
+$IPTABLES -A FORWARD -i $LANIF -o $WANIF -m state --state RELATED,ESTABLISHED -j ACCEPT
+$IPTABLES -A FORWARD -i $WANIF -o $LANIF -j ACCEPT
+
+$IPTABLES -t nat -A POSTROUTING -o $WANIF -j MASQUERADE
+$IPTABLES -A FORWARD -i $WANIF -o $LANIF -m state --state RELATED,ESTABLISHED -j ACCEPT
+$IPTABLES -A FORWARD -i $LANIF -o $WANIF -j ACCEPT
+
+echo 'Done.'
+########
+######
+# Fin du script
+
+# Avoir une configuration router persistante
+sudo apt install iptables-persistent
+
+# Configurer une adresse ip fixe pour une machine
+### Fichier /etc/dnsmasq.conf
+dhcp-host=<mac-addr>,<host-name>,<ip-addr>
