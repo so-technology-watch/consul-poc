@@ -1,4 +1,4 @@
-# Acces à la rpi :
+﻿# Acces à la rpi :
 login : pi
 passwd : raspberry
 
@@ -26,7 +26,7 @@ https://raspbian-france.fr/creer-un-hotspot-wi-fi-en-moins-de-10-minutes-avec-la
 
 IPTABLES=/sbin/iptables
 
-WANIF='eth1'
+WANIF='eth0'
 LANIF='wlan0'
 
 # enable ip forwarding in the kernel

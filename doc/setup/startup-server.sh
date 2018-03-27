@@ -1,5 +1,13 @@
 #!/bin/bash
 
+#Regarde si l'execution est bien en root (i.e. sudo)
+if [ $USER != "root" ]
+then
+    echo -e "Vous devez être root pour lancer ce progamme!"
+    exit 1
+fi
+
+
 # script de démarrage
 echo "#!/bin/bash
 exec consul agent -config-dir /etc/consul.d/server" > /usr/bin/consul-server

@@ -1,11 +1,23 @@
 #!/bin/bash
 
 # Script qui configure la machine afin de faire tourner consul
-
 datacenter="nyc2"
 data_dir="/var/consul"
 log_level="DEBUG";
 enable_syslog="true"
+
+#Regarde si l'execution est bien en root (i.e. sudo)
+if [ $USER != "root" ]
+then
+    echo -e "Vous devez être root pour lancer ce progamme!"
+    exit 1
+fi
+
+unzip=`which unzip`
+if [[ $unzip == "" ]]; then
+	echo -e "Ce progamme nécessite la présence du paquet unzip. Veuillez l'installer"
+	exit 1
+fi
 
 #Si consul n'est pas présent dans le path, on l'installe
 program=`which consul`

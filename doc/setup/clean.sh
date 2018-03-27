@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#Regarde si l'execution est bien en root (i.e. sudo)
+if [ $USER != "root" ]
+then
+    echo -e "Vous devez être root pour lancer ce progamme!"
+    exit 1
+fi
+
 rm -rf /etc/consul.d
 rm -rf /var/consul
 rm -rf /etc/systemd/system/consul-client.service
