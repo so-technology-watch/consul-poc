@@ -104,7 +104,7 @@ echo "{
     \"datacenter\": \"$datacenter\",
     \"data_dir\": \"$data_dir\",
     \"ui\": true,
-    \"log_level\": \"log_level\",
+    \"log_level\": \"$log_level\",
     \"enable_syslog\": $enable_syslog,
     \"start_join\": [$IP_SERVERS],
 	\"bind_addr\": \"$IP_ADDR\",
