@@ -27,8 +27,7 @@ ExecStart=/usr/bin/consul-server
 RemainAfterExit=yes
 
 [Install]
-WantedBy=default.target"
- > /etc/systemd/system/consul-server.service
+WantedBy=default.target" > /etc/systemd/system/consul-server.service
 
 chmod 744 /usr/bin/consul-server
 chmod 664 /etc/systemd/system/consul-server.service
