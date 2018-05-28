@@ -80,7 +80,7 @@ done
 
 if [[ "$config_response" == "c" ]]; then
 	# Demande si activation de l'ui pour le client
-	printf "Activation de l'UI pour la config client ? [O/n] : "
+	printf "Activation de la GUI ? [O/n] : "
 	read -e ui_response
 	while [[ "$ui_response" != "n" && "$ui_response" != "o" ]]; do
 		printf "Entrée incorrecte. Entrer o ou n. "
@@ -91,6 +91,17 @@ if [[ "$config_response" == "c" ]]; then
 		enable_ui="true"
 	fi
 	
+	# Demande si activation du script check 
+	printf "Activation du script check ? [O/n] : "
+	read -e sc_response
+	while [[ "$sc_response" != "n" && "$sc_response" != "o" ]]; do
+		printf "Entrée incorrecte. Entrer o ou n. "
+		read -e sc_response
+	done
+
+	if [[ "$sc_response" == "o" ]]; then
+		enable_sc="true"
+	fi
 	# Configuration client
 	mkdir -p /etc/consul.d/client
 	
@@ -101,6 +112,7 @@ if [[ "$config_response" == "c" ]]; then
     \"ui\": $enable_ui,
     \"log_level\": \"$log_level\",
     \"enable_syslog\": $enable_syslog,
+	\"enable_script_checks\": $enable_sc,
     \"start_join\": [$IP_SERVERS],
 	\"bind_addr\": \"$IP_ADDR\",
 	\"node_name\":\"$NAME\" }" > /etc/consul.d/client/config.json
