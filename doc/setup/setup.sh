@@ -26,16 +26,16 @@ if [[ -z $program ]]; then
 	if [[ $architecture == *"arm"* ]]; then
 		arm_version=${architecture:3:1}
 		if [[ arm_version -le 7 ]]; then #arm 32bits
-			LINK="https://releases.hashicorp.com/consul/1.0.2/consul_1.0.2_linux_arm.zip"
+			LINK="https://releases.hashicorp.com/consul/1.1.0/consul_1.1.0_linux_arm.zip"
 		else #arm 64bits
-			LINK="https://releases.hashicorp.com/consul/1.0.2/consul_1.0.2_linux_arm64.zip"
+			LINK="https://releases.hashicorp.com/consul/1.1.0/consul_1.1.0_linux_arm64.zip"
 		fi
 
 	elif [[ $architecture == *"64" ]]; then #architecture 64bits
-		LINK="https://releases.hashicorp.com/consul/1.0.2/consul_1.0.2_linux_amd64.zip"
+		LINK="https://releases.hashicorp.com/consul/1.1.0/consul_1.1.0_linux_amd64.zip"
 
 	else #architecture 32bits
-		LINK="https://releases.hashicorp.com/consul/1.0.2/consul_1.0.2_linux_386.zip"
+		LINK="https://releases.hashicorp.com/consul/1.1.0/consul_1.1.0_linux_386.zip"
 	fi
 
 	DIR=`pwd`
